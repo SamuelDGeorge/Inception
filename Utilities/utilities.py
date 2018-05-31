@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+from PIL import Image as PI 
 from scipy import sparse
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.utils import check_array
@@ -13,7 +14,18 @@ from sklearn.pipeline import FeatureUnion
 from datetime import datetime
 from functools import partial
 
+def generate_image_array(filename, height, width, scale_to_one = True):
+    image = PI.open(filename)
+    image = image.resize((height, width), PI.ANTIALIAS)
+    to_return = np.array(image).reshape(1,299,299,3)
+    if scale_to_one:
+        return to_return/255
+    return to_return
 
+def generate_image(filename, height, width):
+    image = PI.open(filename)
+    image = image.resize((height, width), PI.ANTIALIAS)
+    return image
 
 def import_data(file_name, data_path=""):
     csv_path = os.path.join(data_path, file_name)
