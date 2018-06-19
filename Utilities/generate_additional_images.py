@@ -8,7 +8,7 @@ from os.path import isfile
 import argparse
 
 parser = argparse.ArgumentParser(description='Use in a folder to generate multiple images \
-            from a single image to train a neural network. Produces 11 additional images \
+            from a single image to train a neural network. Produces 4 additional images \
             with adjustments to orientation, colorscale, and brightness.')
 parser.add_argument('--folder', help="Specify the folder in which to manipulate the images.", default=os.getcwd(),
                     type=str, action='store')
@@ -20,6 +20,7 @@ def random_brightness(image):
 
 def generate_multiple_images(filename):
     file, ext = os.path.splitext(filename)
+
     image = PI.open(filename)
     image_90 = image.rotate(90)
     image_180 = image.rotate(180)
@@ -35,17 +36,23 @@ def generate_multiple_images(filename):
     image_180_bright_random = random_brightness(image_180)
     image_270_bright_random = random_brightness(image_270)
 
-    image_90.save(file + "_90.jpg", "JPEG")
-    image_180.save(file + "_180.jpg", "JPEG")
-    image_270.save(file + "_270.jpg", "JPEG")
-    image_grey.save(file + "_grey.jpg", "JPEG")
-    image_90_grey.save(file + "_90_grey.jpg", "JPEG")
-    image_180_grey.save(file + "_180_grey.jpg", "JPEG")
-    image_270_grey.save(file + "_270_grey.jpg", "JPEG")
-    image_bright_random.save(file + "_bright.jpg", "JPEG")
-    image_90_bright_random.save(file + "_90_bright.jpg", "JPEG")
-    image_180_bright_random.save(file + "_180_bright.jpg", "JPEG")
-    image_270_bright_random.save(file + "_270_bright.jpg", "JPEG")
+    i = random.randrange(1,3)
+
+    if i == 1:
+        image_180.save(file + "_180.jpg", "JPEG")
+        image_grey.save(file + "_grey.jpg", "JPEG")
+        image_90_bright_random.save(file + "_90_bright.jpg", "JPEG")
+        image_180_bright_random.save(file + "_180_bright.jpg", "JPEG")
+    elif i == 2:
+        image_90.save(file + "_90.jpg", "JPEG")
+        image_270_grey.save(file + "_270_grey.jpg", "JPEG")
+        image_180_bright_random.save(file + "_180_bright.jpg", "JPEG")
+        image_180_grey.save(file + "_180_grey.jpg", "JPEG")
+    else:
+        image_90_grey.save(file + "_90_grey.jpg", "JPEG")
+        image_bright_random.save(file + "_bright.jpg", "JPEG")
+        image_90_bright_random.save(file + "_90_bright.jpg", "JPEG")
+        image_270_bright_random.save(file + "_270_bright.jpg", "JPEG")
     
 def generate_multiple_images_directory(folder_path):
     files = os.listdir(folder_path)
