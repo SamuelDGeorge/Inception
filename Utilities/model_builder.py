@@ -39,7 +39,7 @@ def parse_record(raw_record, is_training):
     # Note that tf.image.convert_image_dtype scales the image data to [0, 1).
     image = tf.image.convert_image_dtype(image, dtype=tf.float32)
  
-    image = tf.image.resize_image_with_crop_or_pad(image,299,299)
+    image = tf.image.resize_image_with_crop_or_pad(image,331,331)
     
     label = tf.cast(
         tf.reshape(parsed['image/class/label'], shape=[]),

@@ -17,7 +17,7 @@ from functools import partial
 def generate_image_array(filename, height, width, scale_to_one = True):
     image = PI.open(filename)
     image = image.resize((height, width), PI.ANTIALIAS)
-    to_return = np.array(image).reshape(1,299,299,3)
+    to_return = np.array(image).reshape(1,height,width,3)
     if scale_to_one:
         return to_return/255
     return to_return
