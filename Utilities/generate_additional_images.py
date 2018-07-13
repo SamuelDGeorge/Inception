@@ -67,7 +67,7 @@ def main():
         print("Please enter a valid folder to run program!")
         exit(1)
     generate_multiple_images_directory(args.folder)
-    print("Generated images on all jpg files in " + args.folder + ".")
+    print("Generated images on all jpg files in " + args.folder)
 
 if __name__=="__main__":
     main()
